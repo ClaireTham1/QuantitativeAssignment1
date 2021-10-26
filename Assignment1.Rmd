@@ -20,11 +20,19 @@ library(knitr)
 ```
 
 
-
+##Loading our datasets
 
 ```{r}
 
-mort_apps <- read_csv("Mortgage_Applications.csv")
+medHHInc_2019 <- read_excel("2019_medianHHincome.xlsx")
+
+MortBurd_MSA <- read_excel("MortgageBurden_MSA_2019_1yr.xlsx")
+
+ForSale_Inventory <- read_excel("MSA_For Sale Inventory.xlsx")
+
+Med_Sale_Price <- read_excel("MSA_Med Sale Price.xlsx")
+
+Median_List_Price <- read_excel("MSA_Median List Price.xlsx")
 
 
 ```
