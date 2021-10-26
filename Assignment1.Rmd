@@ -1,6 +1,6 @@
 ---
 title: "Assignment1_testKM"
-author: "Kayla Myros"
+author: "Kayla Myros, Claire Tham, Khalil Kaba"
 date: "10/25/2021"
 output: html_document
 ---
@@ -9,8 +9,20 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-##setting up the R Markdown File?? 
+##*Introduction*##
+
+*Research Question*
+
+Does the housing real estate market see less activity in areas that have higher incidences of home ownership cost burden?  
+
+
+*Studies to Inform our Research*
+
+
+
+
+
+##setting up the R Markdown File
 
 ```{r}
 library(tidyverse)
@@ -20,24 +32,90 @@ library(knitr)
 ```
 
 
-##Loading our datasets
+##Loading our datasets & adding variables
+
+
+*CATEGORICAL VARIABLES*
+Our team created the following categorical variables using the U.S. Census Bureau, American Community Survey 1-year estimates data. 
+
+
+*Median Household Income, 2019* Data of median household income for each Metropolitan Statistical Area categorized into "high" and "low" categories. High median income is any incomes greater than 55,000 dollars, Low median income is equal to or less than 55,000 dollars. 
+
+
+
+*Mortgage Cost Burden, 2019* Mortgage cost burden data is defined as the percentage of the population within the Metropolitan Statistical Area that are homeowners with a mortgage who spend 30 percent or more of their income on their mortgage cost. The variable is defined as a category of a highly burdened area and less burdened area.
+Highly burdened means 30 percent or more of the mortgaged homeowner population are housing burdened. While less burdened means fewer than 30 percent of the mortgaged homeowner population are housing burdened. 
+
+
+
+*CONTINUOUS VARIABLES*
+Our team identified the following continuous variables from the Zillow research data center. 
+
+*For Sale Inventory, 2021* This data shows the number of homes on the housing market per the Metropolitan Statistical Area.It is reported monthly. 
+
+*Median Sales Price, 2021* This data shows the median sales price of homes sold on the housing market within the specific Metropolitan Statistical Area. It is reported monthly. 
+
+*Median List Price, 2021* This data shows the median listing price of homes on the housing market within the specific Metropolitan Statistical Area.This is what the property owner is asking for the home. This data is reported monthly. 
+
+
 
 ```{r}
 
-medHHInc_2019 <- read_excel("2019_medianHHincome.xlsx")
+Median_HH_Income <- read_excel("2019_medianHHincome.xlsx") %>%
+  mutate(MedIncome_Quality = ifelse(Med_Income > 55000, "High", "Low"))
+    
 
-MortBurd_MSA <- read_excel("MortgageBurden_MSA_2019_1yr.xlsx")
+
+Mortgage_Burden <- read_excel("MortgageBurden_MSA_2019_1yr.xlsx") %>%
+    mutate(MortBurd_Quality = ifelse(Pct_MortBurden > .30, "HighlyBurdened", "LessBurdened"))
 
 ForSale_Inventory <- read_excel("MSA_For Sale Inventory.xlsx")
+  
 
 Med_Sale_Price <- read_excel("MSA_Med Sale Price.xlsx")
+colnames(Med_Sale_Price)[6:14] <- c("SaleP_Jan", "SaleP_Feb", "SaleP_Mar", "SaleP_Apr", "SaleP_May", "SaleP_Jun", "SaleP_Jul", "SaleP_Aug", "SaleP_Sep")
+
+
 
 Median_List_Price <- read_excel("MSA_Median List Price.xlsx")
+colnames(Median_List_Price)[6:14] <- c("listP_Jan", "listP_Feb", "listP_Mar", "listP_Apr", "listP_May", "listP_Jun", "listP_Jul", "listP_Aug", "listP_Sep")
+
+Median_List_Price_3 <- subset(Median_List_Price, select = -c(6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40))
+##selecting for everything but THOSE columns
+
+
+colnames(Median_List_Price_3)[5:15] <- c("state", "listP_dec2020", "listP_Jan", "listP_Feb", "listP_Mar", "listP_Apr", "listP_May", "listP_Jun", "listP_Jul", "listP_Aug", "listP_Sep")
+
+
+
+
+
 
 
 ```
 
 
+##Joining the datasets 
+
+```{r}
+
+data <-  left_join(Median_HH_Income, Mortgage_Burden) %>%
+  left_join(ForSale_Inventory) %>%
+  left_join(Median_List_Price_3) %>%
+  left_join(Med_Sale_Price)
+
+
+kable(head(data))
+  
+
+
+```
+
+
+
+*Observations*
+
+There are 392 rows of data, this represents 392 Metropolitan Statistical Areas and there are 48 variables in the columns. We will not use each column of data as some columns were inputs for calculating new variables, and some columns are extra just in case it could aid our regression analysis. 
 
 
 
