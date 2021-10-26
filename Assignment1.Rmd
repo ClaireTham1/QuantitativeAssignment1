@@ -1,0 +1,36 @@
+---
+title: "Assignment1_testKM"
+author: "Kayla Myros"
+date: "10/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+##setting up the R Markdown File?? 
+
+```{r}
+library(tidyverse)
+library(tidycensus)
+library(readxl)
+library(knitr)
+```
+
+
+
+
+```{r}
+
+mort_apps <- read_csv("Mortgage_Applications.csv")
+
+
+```
+
+
+
+
+
+
