@@ -1,5 +1,5 @@
 ---
-title: "Assignment1_testKM"
+title: "Assignment 1"
 author: "Kayla Myros, Claire Tham, Khalil Kaba"
 date: "10/25/2021"
 output: html_document
@@ -9,20 +9,33 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##*Introduction*##
+# Introduction
 
-*Research Question*
+**Research Question**
 
 Does the housing real estate market see less activity in areas that have higher incidences of home ownership cost burden?  
 
 
-*Studies to Inform our Research*
+**Prior Research**
+
+Housing costs burden is defined as households who spend more than 30% of their income on housing costs (Urban Institute, Housing and Finance Policy Center, 2021) Predominantly, literature has established that lower income households tend to be the most significantly impacted and fall into a homeownership cost burden (Olsen, 2007). Under the real estate domain, it has also been established that transaction volume is an indicator whether demand has been rising and can be a precursor to rising prices (Norm & Michael, 1986).  Ultimately, housing cost burdens results in a significant barrier to housing affordability in the United States of America, despite the fact that homeownership encourages wealth creation and forms a basis of financial security. (Goodman and Mayer, 2018)
+
+
+*References*
+
+Miller, Norm & Sklarz, Michael. (1986). A Note on Leading Indicators of Housing Market Price Trends. Journal of Real Estate Research. 1. 99-109. 10.1080/10835547.1986.12090516.
+
+Goodman, Laurie S., and Christopher Mayer (2018) "Homeownership and the American Dream." Journal of Economic Perspectives, 32 (1): 31-58.DOI: 10.1257/jep.32.1.31
+
+Edgar O. Olsen (2007)  Opportunity and Ownership Project Report No. 2: Promoting Homeownership among Low-Income Households. The Urban Institute
+Urban Institute, Housing and Finance Policy Center (2021) Homeownership Is Affordable Housing
 
 
 
 
+**Data Gathering Process**
 
-##setting up the R Markdown File
+#setting up the R Markdown File
 
 ```{r}
 library(tidyverse)
@@ -31,11 +44,11 @@ library(readxl)
 library(knitr)
 ```
 
+# Variable Definitions
 
-##Loading our datasets & adding variables
 
+**CATEGORICAL VARIABLES**
 
-*CATEGORICAL VARIABLES*
 Our team created the following categorical variables using the U.S. Census Bureau, American Community Survey 1-year estimates data. 
 
 
@@ -48,7 +61,8 @@ Highly burdened means 30 percent or more of the mortgaged homeowner population a
 
 
 
-*CONTINUOUS VARIABLES*
+**CONTINUOUS VARIABLES**
+
 Our team identified the following continuous variables from the Zillow research data center. 
 
 *For Sale Inventory, 2021* This data shows the number of homes on the housing market per the Metropolitan Statistical Area.It is reported monthly. 
@@ -58,6 +72,11 @@ Our team identified the following continuous variables from the Zillow research 
 *Median List Price, 2021* This data shows the median listing price of homes on the housing market within the specific Metropolitan Statistical Area.This is what the property owner is asking for the home. This data is reported monthly. 
 
 
+
+
+
+
+# Loading and Cleaning the Data files
 
 ```{r}
 
@@ -95,7 +114,7 @@ colnames(Median_List_Price_3)[5:15] <- c("state", "listP_dec2020", "listP_Jan", 
 ```
 
 
-##Joining the datasets 
+# Joining the datasets 
 
 ```{r}
 
@@ -113,7 +132,7 @@ kable(head(data))
 
 
 
-*Observations*
+# Observations
 
 There are 392 rows of data, this represents 392 Metropolitan Statistical Areas and there are 48 variables in the columns. We will not use each column of data as some columns were inputs for calculating new variables, and some columns are extra just in case it could aid our regression analysis. 
 
