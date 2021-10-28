@@ -106,11 +106,6 @@ Median_List_Price_3 <- subset(Median_List_Price, select = -c(6,7,8,9,10,11,12,13
 colnames(Median_List_Price_3)[5:15] <- c("state", "listP_dec2020", "listP_Jan", "listP_Feb", "listP_Mar", "listP_Apr", "listP_May", "listP_Jun", "listP_Jul", "listP_Aug", "listP_Sep")
 
 
-
-
-
-
-
 ```
 
 
@@ -135,6 +130,52 @@ kable(head(data))
 # Observations
 
 There are 392 rows of data, this represents 392 Metropolitan Statistical Areas and there are 48 variables in the columns. We will not use each column of data as some columns were inputs for calculating new variables, and some columns are extra just in case it could aid our regression analysis. 
+
+
+
+
+# Descriptive Statistics
+
+*Continuous variables*
+
+The continuous variables I want to use are Zillow's For Sale Inventory, Median Sale Price, and Median Listing Price by U.S. Metropolitan Statistical Areas. 
+
+**Calculations**
+
+
+Find the sample mean and the 95-percent confidence interval from the population mean with the t.test() function (this is a one-sample t-test).
+
+```{r}
+soldp_t_test <- t.test(data$SaleP_Sep)
+listp_t_test <- t.test(data$listP_Sep)
+inventory_t_test <- t.test(data$Inv_Sep)
+```
+
+Find the median and the interquartile range using the quantile() function
+
+```{r}
+soldp_quant <- quantile(data$Med_Sale_Price, na.rm = TRUE)
+listp_quant <- quantile(data$Median_List_Price_3, na.rm = TRUE)
+inventory_quant <- quantile(data$ForSale_Inventory, na.rm = TRUE)
+```
+
+
+Find the standard deviation 
+
+```{r}
+soldp_st_dev <- sd(data$Med_, na.rm = TRUE)
+listp_st_dev <- sd(data$pop_dens, na.rm = TRUE)
+inventory_st_dev <- sd(data$covid_rate, na.rm = TRUE)
+```
+
+Create a Histogram of each variable to see distribution 
+
+```{r}
+age_hist <- ggplot(data) +
+  geom_histogram(aes(x = med_age_E),
+                 bins = 30)
+```
+
 
 
 
