@@ -154,25 +154,25 @@ inventory_t_test <- t.test(data$Inv_Sep)
 Find the median and the interquartile range using the quantile() function
 
 ```{r}
-soldp_quant <- quantile(data$Med_Sale_Price, na.rm = TRUE)
-listp_quant <- quantile(data$Median_List_Price_3, na.rm = TRUE)
-inventory_quant <- quantile(data$ForSale_Inventory, na.rm = TRUE)
+soldp_quant <- quantile(data$SaleP_Sep, na.rm = TRUE)
+listp_quant <- quantile(data$listP_Sep, na.rm = TRUE)
+inventory_quant <- quantile(data$Inv_Sep, na.rm = TRUE)
 ```
 
 
 Find the standard deviation 
 
 ```{r}
-soldp_st_dev <- sd(data$Med_, na.rm = TRUE)
-listp_st_dev <- sd(data$pop_dens, na.rm = TRUE)
-inventory_st_dev <- sd(data$covid_rate, na.rm = TRUE)
+soldp_st_dev <- sd(data$SaleP_Sep, na.rm = TRUE)
+listp_st_dev <- sd(data$listP_Sep, na.rm = TRUE)
+inventory_st_dev <- sd(data$Inv_Sep, na.rm = TRUE)
 ```
 
 Create a Histogram of each variable to see distribution 
 
 ```{r}
-age_hist <- ggplot(data) +
-  geom_histogram(aes(x = med_age_E),
+soldp_hist <- ggplot(data) +
+  geom_histogram(aes(x = SaleP_Sep),
                  bins = 30)
 ```
 
