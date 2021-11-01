@@ -233,6 +233,29 @@ cont_summary <- tibble(
 
 kable(cont_summary, digits = 0)
 ```
+```{r}
+pretty_soldp_hist <- soldp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Sold Price Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+pretty_listp_hist <- listp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Listed Price Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+pretty_inventoryp_hist <- inventoryp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Inventory Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+grid.arrange(pretty_soldp_hist, pretty_listp_hist, pretty_inventoryp_hist,
+             ncol = 3)
+
+```
 
 
 
