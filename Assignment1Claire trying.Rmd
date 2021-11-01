@@ -159,6 +159,15 @@ listp_quant <- quantile(data$listP_Sep, na.rm = TRUE)
 inventory_quant <- quantile(data$Inv_Sep, na.rm = TRUE)
 ```
 
+```{r}
+soldp_quant
+```
+```{r}
+listp_quant
+```
+```{r}
+inventory_quant
+```
 
 Find the standard deviation 
 
@@ -174,6 +183,27 @@ Create a Histogram of each variable to see distribution
 soldp_hist <- ggplot(data) +
   geom_histogram(aes(x = SaleP_Sep),
                  bins = 30)
+scale_x_continuous(trans = "log")
+
+soldp_hist
+```
+
+
+```{r}
+listp_hist <- ggplot (data) +
+  geom_histogram(aes(x= listP_Sep),
+                 bins = 30)
+scale_x_continuous(trans = "log")
+listp_hist
+```
+
+
+```{r}
+inventoryp_hist <- ggplot (data) +
+  geom_histogram(aes(x= Inv_Sep),
+                 bins = 30)
+scale_x_continuous(trans = "log")
+inventoryp_hist
 ```
 
 
