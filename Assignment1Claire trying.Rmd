@@ -257,7 +257,61 @@ grid.arrange(pretty_soldp_hist, pretty_listp_hist, pretty_inventoryp_hist,
 
 ```
 
+```{r}
+pct_highincome <- t.test(data$MedIncome_Quality == "High Income")
+pct_lowincome <-  t.test(data$MedIncome_Quality == "Low Income")
+```
 
+```{r}
+pct_highlyburdened <- t.test(data$MortBurd_Quality == "Highly Burdened")
+pct_lessburdened <-  t.test(data$MortBurd_Quality == "Less Burdened")
+```
 
+```{r}
+cat_summary_party <- tibble(`Income` = 
+                              c("High Income",
+                                "Low Income"),
+                            `Sample proportion` = 
+                              c(pct_highincome$estimate * 100,
+                                pct_lowincome$estimate *100),
+                            `95-percent confidence - low` = 
+                              c(pct_highincome$conf.int[1] * 100,
+                                pct_lowincome$conf.int[1] * 100),
+                            `95-percent confidence - high` = 
+                              c(pct_highincome$conf.int[2] * 100,
+                                pct_lowincome$conf.int[2] * 100))
 
+kable(cat_summary_party, digits = 0)
+```
+```{r}
+cat_summary_party <- tibble(`Income` = 
+                              c("Highly Burdened",
+                                "Less Burdened"),
+                            `Sample proportion` = 
+                              c(pct_highlyburdened$estimate * 100,
+                                pct_lessburdened$estimate *100),
+                            `95-percent confidence - low` = 
+                              c(pct_highlyburdened$conf.int[1] * 100,
+                                pct_lessburdened$conf.int[1] * 100),
+                            `95-percent confidence - high` = 
+                              c(pct_highlyburdened$conf.int[2] * 100,
+                                pct_lessburdened$conf.int[2] * 100))
+
+kable(cat_summary_party, digits = 0)
+```
+```{r}
+ggplot(cat_summary_party) +
+  geom_bar(aes(x = `Majority Party in 2020`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `Majority Party in 2020`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of counties",
+                     breaks = c(0, 20, 40, 60, 80),
+                     labels = c("0", "20%", "40%", "60%", "80%")) +
+  theme_bw()
+```
 
