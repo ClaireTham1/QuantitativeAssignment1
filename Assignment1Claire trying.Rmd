@@ -205,6 +205,34 @@ inventoryp_hist <- ggplot (data) +
 scale_x_continuous(trans = "log")
 inventoryp_hist
 ```
+```{r}
+cont_summary <- tibble(
+  Variable = c("Sold prices", 
+               "Listed prices", 
+               "Inventory Volume"),
+  `Sample mean` = c(soldp_t_test$estimate,
+                    listp_t_test$estimate,
+                    inventory_t_test$estimate),
+  `Prices mean (95% confidence) - low` = 
+    c(soldp_t_test$conf.int[1],
+      listp_t_test$conf.int[1],
+      inventory_t_test$conf.int[1]),
+  `Population mean (95% confidence) - high` =
+    c(soldp_t_test$conf.int[2],
+      listp_t_test$conf.int[2],
+      inventory_t_test$conf.int[2]),
+  Median = c(soldp_quartiles[3],
+             listp_quartiles[3],
+             inventory_quartiles[3]),
+  `Interquartile range` = c(soldp_quartiles[4] - soldp_quartiles[2],
+                            listp_quartiles[4] - listp_quartiles[2],
+                            inventory_quartiles[4] - inventory_quartiles[2]),
+  `Standard deviation` = c(soldp_st_dev,
+                          listp_st_dev,
+                          inventory_st_dev),
+
+kable(cont_summary, digits = 0)
+```
 
 
 
