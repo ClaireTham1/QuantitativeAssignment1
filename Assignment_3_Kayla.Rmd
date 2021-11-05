@@ -131,6 +131,51 @@ Median_HH_Income$RegionName <- gsub("Dallas-Fort Worth-Arlington, TX", "Dallas-F
 Median_HH_Income$RegionName <- gsub("Dayton-Kettering, OH", "Dayton, OH", Median_HH_Income$RegionName)
 Median_HH_Income$RegionName <- gsub("Deltona-Daytona Beach-Ormond Beach, FL", "Daytona Beach, FL", Median_HH_Income$RegionName)
 
+Median_HH_Income$RegionName <- gsub("Denver-Aurora-Lakewood, CO", "Denver, CO", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Des Moines-West Des Moines, IA", "Des Moines, IA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Detroit-Warren-Dearborn, MI", "Detroit, MI", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Durham-Chapel Hill, NC", "Durham, NC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Grand Rapids-Kentwood, MI", "Grand Rapids, MI", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Greensboro-High Point, NC", "Greensboro, NC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Greenville-Anderson, SC", "Greenville, SC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Hartford-East Hartford-Middletown, CT", "Hartford, CT", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Houston-The Woodlands-Sugar Land, TX", "Houston, TX", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Indianapolis-Carmel-Anderson, IN", "Indianapolis, IN", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Las Vegas-Henderson-Paradise, NV", "Las Vegas, NV", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Little Rock-North Little Rock-Conway, AR", "Little Rock, AR", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Louisville/Jefferson County, KY-IN", "Louisville-Jefferson County, KY", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Memphis, TN-MS-AR", "Memphis, TN", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Memphis, TN-MS-AR", "Memphis, TN", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Miami-Fort Lauderdale-Pompano Beach, FL", "Miami-Fort Lauderdale, FL", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Milwaukee-Waukesha, WI", "Milwaukee, WI", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Minneapolis-St. Paul-Bloomington, MN-WI", "Minneapolis-St Paul, MN", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Nashville-Davidson--Murfreesboro--Franklin, TN", "Nashville, TN", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("New Haven-Milford, CT", "New Haven, CT", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("New Orleans-Metairie, LA", "New Orleans, LA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("New York-Newark-Jersey City, NY-NJ-PA", "New York, NY", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Ogden-Clearfield, UT", "Ogden, UT", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Omaha-Council Bluffs, NE-IA", "Omaha, NE", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Orlando-Kissimmee-Sanford, FL", "Orlando, FL", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Philadelphia-Camden-Wilmington, PA-NJ-DE-MD", "Philadelphia, PA", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Phoenix-Mesa-Chandler, AZ", "Phoenix, AZ", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Portland-South Portland, ME", "Portland, ME", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Providence-Warwick, RI-MA", "Providence, RI", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Raleigh-Cary, NC", "Raleigh, NC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Riverside-San Bernardino-Ontario, CA", "Riverside, CA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Sacramento-Roseville-Folsom, CA", "Sacramento, CA", Median_HH_Income$RegionName)
+
+
+
+
+
+
+
 
 
 
