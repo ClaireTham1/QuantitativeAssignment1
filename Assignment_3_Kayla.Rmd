@@ -1,0 +1,425 @@
+---
+title: "Assignment 2"
+author: "Kayla Myros, Claire Tham, Khalil Kaba"
+date: "10/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+**Research Question**
+
+Does the housing real estate market see less activity in areas that have higher incidences of home ownership cost burden?  
+
+
+**Prior Research**
+
+Housing costs burden is defined as households who spend more than 30% of their income on housing costs (Urban Institute, Housing and Finance Policy Center, 2021) Predominantly, literature has established that lower income households tend to be the most significantly impacted and fall into a homeownership cost burden (Olsen, 2007). Under the real estate domain, it has also been established that transaction volume is an indicator whether demand has been rising and can be a precursor to rising prices (Norm & Michael, 1986).  Ultimately, housing cost burdens results in a significant barrier to housing affordability in the United States of America, despite the fact that homeownership encourages wealth creation and forms a basis of financial security. (Goodman and Mayer, 2018)
+
+
+*References*
+
+Miller, Norm & Sklarz, Michael. (1986). A Note on Leading Indicators of Housing Market Price Trends. Journal of Real Estate Research. 1. 99-109. 10.1080/10835547.1986.12090516.
+
+Goodman, Laurie S., and Christopher Mayer (2018) "Homeownership and the American Dream." Journal of Economic Perspectives, 32 (1): 31-58.DOI: 10.1257/jep.32.1.31
+
+Edgar O. Olsen (2007)  Opportunity and Ownership Project Report No. 2: Promoting Homeownership among Low-Income Households. The Urban Institute
+Urban Institute, Housing and Finance Policy Center (2021) Homeownership Is Affordable Housing
+
+
+
+
+**Data Gathering Process**
+
+#setting up the R Markdown File
+
+```{r}
+library(tidyverse)
+library(tidycensus)
+library(readxl)
+library(knitr)
+library(tigris)
+library(sf)
+```
+
+# Variable Definitions
+
+
+**CATEGORICAL VARIABLES**
+
+Our team created the following categorical variables using the U.S. Census Bureau, American Community Survey 1-year estimates data. 
+
+
+*Median Household Income, 2019* Data of median household income for each Metropolitan Statistical Area categorized into "high" and "low" categories. High median income is any incomes greater than 55,000 dollars, Low median income is equal to or less than 55,000 dollars. 
+
+
+
+*Mortgage Cost Burden, 2019* Mortgage cost burden data is defined as the percentage of the population within the Metropolitan Statistical Area that are homeowners with a mortgage who spend 30 percent or more of their income on their mortgage cost. The variable is defined as a category of a highly burdened area and less burdened area.
+Highly burdened means 30 percent or more of the mortgaged homeowner population are housing burdened. While less burdened means fewer than 30 percent of the mortgaged homeowner population are housing burdened. 
+
+
+
+**CONTINUOUS VARIABLES**
+
+Our team identified the following continuous variables from the Zillow research data center. 
+
+*For Sale Inventory, 2021* This data shows the number of homes on the housing market per the Metropolitan Statistical Area.It is reported monthly. 
+
+*Median Sales Price, 2021* This data shows the median sales price of homes sold on the housing market within the specific Metropolitan Statistical Area. It is reported monthly. 
+
+*Median List Price, 2021* This data shows the median listing price of homes on the housing market within the specific Metropolitan Statistical Area.This is what the property owner is asking for the home. This data is reported monthly. 
+
+
+
+
+
+
+# Loading and Cleaning the Data files
+
+```{r}
+
+Median_HH_Income <- read_excel("2019_medianHHincome.xlsx") %>%
+  mutate(MedIncome_Quality = ifelse(Med_Income > 55000, "High", "Low"))
+    
+
+
+Mortgage_Burden <- read_excel("MortgageBurden_MSA_2019_1yr.xlsx") %>%
+    mutate(MortBurd_Quality = ifelse(Pct_MortBurden > .30, "HighlyBurdened", "LessBurdened"))
+
+ForSale_Inventory <- read_excel("MSA_For Sale Inventory.xlsx")
+  
+
+Med_Sale_Price <- read_excel("MSA_Med Sale Price.xlsx")
+colnames(Med_Sale_Price)[6:14] <- c("SaleP_Jan", "SaleP_Feb", "SaleP_Mar", "SaleP_Apr", "SaleP_May", "SaleP_Jun", "SaleP_Jul", "SaleP_Aug", "SaleP_Sep")
+
+
+
+Median_List_Price <- read_excel("MSA_Median List Price.xlsx")
+colnames(Median_List_Price)[6:14] <- c("listP_Jan", "listP_Feb", "listP_Mar", "listP_Apr", "listP_May", "listP_Jun", "listP_Jul", "listP_Aug", "listP_Sep")
+
+Median_List_Price_3 <- subset(Median_List_Price, select = -c(6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40))
+##selecting for everything but THOSE columns
+
+
+colnames(Median_List_Price_3)[5:15] <- c("state", "listP_dec2020", "listP_Jan", "listP_Feb", "listP_Mar", "listP_Apr", "listP_May", "listP_Jun", "listP_Jul", "listP_Aug", "listP_Sep")
+
+
+```
+
+# Fixing the Census Data MSA to Match Zillow Data MSA 
+
+```{r}
+
+Median_HH_Income$RegionName <- gsub("Albany-Schenectady-Troy, NY", "Albany, NY", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Allentown-Bethlehem-Easton, PA-NJ", "Allentown, PA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Atlanta-Sandy Springs-Alpharetta, GA", "Atlanta, GA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Austin-Round Rock-Georgetown, TX", "	Austin, TX", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Baltimore-Columbia-Towson, MD", "Baltimore, MD", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Birmingham-Hoover, AL", "Birmingham, AL", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Boston-Cambridge-Newton, MA-NH", "Boston, MA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Buffalo-Cheektowaga, NY", "Buffalo, NY", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Charleston-North Charleston, SC", "Charleston, SC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Charlotte-Concord-Gastonia, NC-SC", "Charlotte, NC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Chicago-Naperville-Elgin, IL-IN-WI", "Chicago, IL", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Cincinnati, OH-KY-IN", "Cincinnati, OH", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Cleveland-Elyria, OH", "Cleveland, OH", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Dallas-Fort Worth-Arlington, TX", "Dallas-Fort Worth, TX", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Dayton-Kettering, OH", "Dayton, OH", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Deltona-Daytona Beach-Ormond Beach, FL", "Daytona Beach, FL", Median_HH_Income$RegionName)
+
+
+
+
+
+view(Median_HH_Income)
+
+```
+
+# Joining the datasets 
+
+```{r}
+
+data <-  left_join(Median_HH_Income, Mortgage_Burden) %>%
+  left_join(ForSale_Inventory) %>%
+  left_join(Median_List_Price_3) %>%
+  left_join(Med_Sale_Price)
+
+
+kable(head(data))
+  
+
+
+```
+
+
+
+# Observations
+
+There are 392 rows of data, this represents 392 Metropolitan Statistical Areas and there are 48 variables in the columns. We will not use each column of data as some columns were inputs for calculating new variables, and some columns are extra just in case it could aid our regression analysis. 
+
+
+
+
+# Descriptive Statistics
+
+*Continuous variables*
+
+The continuous variables I want to use are Zillow's For Sale Inventory, Median Sale Price, and Median Listing Price by U.S. Metropolitan Statistical Areas. 
+
+**Calculations**
+
+
+Find the sample mean and the 95-percent confidence interval from the population mean with the t.test() function (this is a one-sample t-test).
+
+```{r}
+soldp_t_test <- t.test(data$SaleP_Sep)
+listp_t_test <- t.test(data$listP_Sep)
+inventory_t_test <- t.test(data$Inv_Sep)
+```
+
+Find the median and the interquartile range using the quantile() function
+
+```{r}
+soldp_quant <- quantile(data$SaleP_Sep, na.rm = TRUE)
+listp_quant <- quantile(data$listP_Sep, na.rm = TRUE)
+inventory_quant <- quantile(data$Inv_Sep, na.rm = TRUE)
+```
+
+```{r}
+soldp_quant
+```
+```{r}
+listp_quant
+```
+```{r}
+inventory_quant
+```
+
+Find the standard deviation 
+
+```{r}
+soldp_st_dev <- sd(data$SaleP_Sep, na.rm = TRUE)
+listp_st_dev <- sd(data$listP_Sep, na.rm = TRUE)
+inventory_st_dev <- sd(data$Inv_Sep, na.rm = TRUE)
+```
+
+Create a Histogram of each variable to see distribution 
+
+```{r}
+soldp_hist <- ggplot(data) +
+  geom_histogram(aes(x = SaleP_Sep),
+                 bins = 30)
+scale_x_continuous(trans = "log")
+
+soldp_hist
+```
+
+
+```{r}
+listp_hist <- ggplot (data) +
+  geom_histogram(aes(x= listP_Sep),
+                 bins = 30)
+scale_x_continuous(trans = "log")
+listp_hist
+```
+
+
+```{r}
+inventoryp_hist <- ggplot (data) +
+  geom_histogram(aes(x= Inv_Sep),
+                 bins = 30)
+scale_x_continuous(trans = "log")
+inventoryp_hist
+```
+```{r}
+cont_summary <- tibble
+  Variable = c("Sold prices", 
+               "Listed prices", 
+               "Inventory Volume")
+  `Sample mean` = c(soldp_t_test$estimate,
+                    listp_t_test$estimate,
+                    inventory_t_test$estimate)
+  `Prices mean (95% confidence) - low` = 
+    c(soldp_t_test$conf.int[1],
+      listp_t_test$conf.int[1],
+      inventory_t_test$conf.int[1])
+  `Population mean (95% confidence) - high` =
+    c(soldp_t_test$conf.int[2],
+      listp_t_test$conf.int[2],
+      inventory_t_test$conf.int[2])
+  Median = c(soldp_quant[3],
+             listp_quant[3],
+             inventory_quant[3])
+  `Interquartile range` = c(soldp_quant[4] - soldp_quant[2],
+                            listp_quant[4] - listp_quant[2],
+                            inventory_quant[4] - inventory_quant[2])
+  `Standard deviation` = c(soldp_st_dev,
+                          listp_st_dev,
+                          inventory_st_dev)
+
+kable(cont_summary, digits = 0)
+```
+```{r}
+pretty_soldp_hist <- soldp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Sold Price Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+pretty_listp_hist <- listp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Listed Price Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+pretty_inventoryp_hist <- inventoryp_hist +
+  theme_bw() +
+  scale_x_continuous(name = "Median price") +
+  scale_y_continuous(name = "Inventory Range") +
+  theme(axis.text.x = element_text(angle = 90))
+
+grid_arrange(pretty_soldp_hist, pretty_listp_hist, pretty_inventoryp_hist,
+             ncol = 3)
+
+```
+
+```{r}
+pct_highincome <- t.test(data$MedIncome_Quality == "High")
+pct_lowincome <-  t.test(data$MedIncome_Quality == "Low")
+```
+
+```{r}
+pct_highlyburdened <- t.test(data$MortBurd_Quality == "HighlyBurdened")
+pct_lessburdened <-  t.test(data$MortBurd_Quality == "LessBurdened")
+```
+
+```{r}
+cat_summary_party <- tibble(`MedIncome_Quality` = 
+                              c("High",
+                                "Low"),
+                            `Sample proportion` = 
+                              c(pct_highincome$estimate * 100,
+                                pct_lowincome$estimate *100),
+                            `95-percent confidence - low` = 
+                              c(pct_highincome$conf.int[1] * 100,
+                                pct_lowincome$conf.int[1] * 100),
+                            `95-percent confidence - high` = 
+                              c(pct_highincome$conf.int[2] * 100,
+                                pct_lowincome$conf.int[2] * 100))
+
+kable(cat_summary_party, digits = 0)
+```
+```{r}
+cat_summary_type <- tibble(`MortBurd_Quality` = 
+                              c("HighlyBurdened",
+                                "LessBurdened"),
+                            `Sample proportion` = 
+                              c(pct_highlyburdened$estimate * 100,
+                                pct_lessburdened$estimate *100),
+                            `95-percent confidence - low` = 
+                              c(pct_highlyburdened$conf.int[1] * 100,
+                                pct_lessburdened$conf.int[1] * 100),
+                            `95-percent confidence - high` = 
+                              c(pct_highlyburdened$conf.int[2] * 100,
+                                pct_lessburdened$conf.int[2] * 100))
+
+kable(cat_summary_type, digits = 0)
+```
+```{r}
+ggplot(cat_summary_party) +
+  geom_bar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Sold Price Range",
+                     breaks = c(0, 20, 40, 60, 80),
+                     labels = c("0", "20%", "40%", "60%", "80%")) +
+  theme_bw()
+```
+```{r}
+ggplot(cat_summary_type) +
+  geom_bar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Sold Price Range",
+                     breaks = c(0, 10, 20, 30, 40),
+                     labels = c("0", "10%", "20%", "30%", "40%")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90)) 
+```
+```{r}
+ggplot(cat_summary_party) +
+  geom_bar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Listed Price Range",
+                     breaks = c(0, 20, 40, 60, 80),
+                     labels = c("0", "20%", "40%", "60%", "80%")) +
+  theme_bw()
+```
+```{r}
+ggplot(cat_summary_type) +
+  geom_bar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Listed Price Range",
+                     breaks = c(0, 10, 20, 30, 40),
+                     labels = c("0", "10%", "20%", "30%", "40%")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90)) 
+```
+```{r}
+ggplot(cat_summary_party) +
+  geom_bar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MedIncome_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Inventory Range",
+                     breaks = c(0, 20, 40, 60, 80),
+                     labels = c("0", "20%", "40%", "60%", "80%")) +
+  theme_bw()
+```
+```{r}
+ggplot(cat_summary_type) +
+  geom_bar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`),
+           stat = "identity") +
+  geom_errorbar(aes(x = `MortBurd_Quality`, 
+               y = `Sample proportion`,
+               ymin = `95-percent confidence - low`,
+               ymax = `95-percent confidence - high`),
+           stat = "identity") +
+  scale_y_continuous(name = "Percent of Inventory Range",
+                     breaks = c(0, 10, 20, 30, 40),
+                     labels = c("0", "10%", "20%", "30%", "40%")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90)) 
+```
+
