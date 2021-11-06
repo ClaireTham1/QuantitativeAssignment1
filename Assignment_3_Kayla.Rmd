@@ -170,19 +170,98 @@ Median_HH_Income$RegionName <- gsub("Raleigh-Cary, NC", "Raleigh, NC", Median_HH
 Median_HH_Income$RegionName <- gsub("Riverside-San Bernardino-Ontario, CA", "Riverside, CA", Median_HH_Income$RegionName)
 Median_HH_Income$RegionName <- gsub("Sacramento-Roseville-Folsom, CA", "Sacramento, CA", Median_HH_Income$RegionName)
 
+Median_HH_Income$RegionName <- gsub("San Diego-Chula Vista-Carlsbad, CA", "San Diego, CA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("San Francisco-Oakland-Berkeley, CA", "San Francisco, CA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("San Jose-Sunnyvale-Santa Clara, CA", "San Jose, CA", Median_HH_Income$RegionName)
+
+Median_HH_Income$RegionName <- gsub("Seattle-Tacoma-Bellevue, WA", "Seattle, WA", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Tampa-St. Petersburg-Clearwater, FL", "Tampa, FL", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Virginia Beach-Norfolk-Newport News, VA-NC", "Virginia Beach, VA", Median_HH_Income$RegionName)
 
 
-
-
-
-
-
-
-
+Median_HH_Income$RegionName <- gsub("Washington-Arlington-Alexandria, DC-VA-MD-WV", "Washington, DC", Median_HH_Income$RegionName)
+Median_HH_Income$RegionName <- gsub("Worcester, MA-CT", "Worcester, MA", Median_HH_Income$RegionName)
 
 view(Median_HH_Income)
 
 ```
+
+
+```{r}
+Mortgage_Burden$RegionName <- gsub("Albany-Schenectady-Troy, NY", "Albany, NY", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Allentown-Bethlehem-Easton, PA-NJ", "Allentown, PA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Atlanta-Sandy Springs-Alpharetta, GA", "Atlanta, GA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Austin-Round Rock-Georgetown, TX", "	Austin, TX", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Baltimore-Columbia-Towson, MD", "Baltimore, MD", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Birmingham-Hoover, AL", "Birmingham, AL", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Boston-Cambridge-Newton, MA-NH", "Boston, MA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Buffalo-Cheektowaga, NY", "Buffalo, NY", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Charleston-North Charleston, SC", "Charleston, SC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Charlotte-Concord-Gastonia, NC-SC", "Charlotte, NC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Chicago-Naperville-Elgin, IL-IN-WI", "Chicago, IL", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Cincinnati, OH-KY-IN", "Cincinnati, OH", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Cleveland-Elyria, OH", "Cleveland, OH", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Dallas-Fort Worth-Arlington, TX", "Dallas-Fort Worth, TX", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Dayton-Kettering, OH", "Dayton, OH", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Deltona-Daytona Beach-Ormond Beach, FL", "Daytona Beach, FL", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Denver-Aurora-Lakewood, CO", "Denver, CO", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Des Moines-West Des Moines, IA", "Des Moines, IA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Detroit-Warren-Dearborn, MI", "Detroit, MI", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Durham-Chapel Hill, NC", "Durham, NC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Grand Rapids-Kentwood, MI", "Grand Rapids, MI", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Greensboro-High Point, NC", "Greensboro, NC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Greenville-Anderson, SC", "Greenville, SC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Hartford-East Hartford-Middletown, CT", "Hartford, CT", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Houston-The Woodlands-Sugar Land, TX", "Houston, TX", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Indianapolis-Carmel-Anderson, IN", "Indianapolis, IN", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Las Vegas-Henderson-Paradise, NV", "Las Vegas, NV", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Little Rock-North Little Rock-Conway, AR", "Little Rock, AR", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Louisville/Jefferson County, KY-IN", "Louisville-Jefferson County, KY", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Memphis, TN-MS-AR", "Memphis, TN", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Memphis, TN-MS-AR", "Memphis, TN", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Miami-Fort Lauderdale-Pompano Beach, FL", "Miami-Fort Lauderdale, FL", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Milwaukee-Waukesha, WI", "Milwaukee, WI", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Minneapolis-St. Paul-Bloomington, MN-WI", "Minneapolis-St Paul, MN", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Nashville-Davidson--Murfreesboro--Franklin, TN", "Nashville, TN", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("New Haven-Milford, CT", "New Haven, CT", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("New Orleans-Metairie, LA", "New Orleans, LA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("New York-Newark-Jersey City, NY-NJ-PA", "New York, NY", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Ogden-Clearfield, UT", "Ogden, UT", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Omaha-Council Bluffs, NE-IA", "Omaha, NE", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Orlando-Kissimmee-Sanford, FL", "Orlando, FL", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Philadelphia-Camden-Wilmington, PA-NJ-DE-MD", "Philadelphia, PA", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Phoenix-Mesa-Chandler, AZ", "Phoenix, AZ", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Portland-South Portland, ME", "Portland, ME", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Providence-Warwick, RI-MA", "Providence, RI", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Raleigh-Cary, NC", "Raleigh, NC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Riverside-San Bernardino-Ontario, CA", "Riverside, CA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Sacramento-Roseville-Folsom, CA", "Sacramento, CA", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("San Diego-Chula Vista-Carlsbad, CA", "San Diego, CA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("San Francisco-Oakland-Berkeley, CA", "San Francisco, CA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("San Jose-Sunnyvale-Santa Clara, CA", "San Jose, CA", Mortgage_Burden$RegionName)
+
+Mortgage_Burden$RegionName <- gsub("Seattle-Tacoma-Bellevue, WA", "Seattle, WA", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Tampa-St. Petersburg-Clearwater, FL", "Tampa, FL", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Virginia Beach-Norfolk-Newport News, VA-NC", "Virginia Beach, VA", Mortgage_Burden$RegionName)
+
+
+Mortgage_Burden$RegionName <- gsub("Washington-Arlington-Alexandria, DC-VA-MD-WV", "Washington, DC", Mortgage_Burden$RegionName)
+Mortgage_Burden$RegionName <- gsub("Worcester, MA-CT", "Worcester, MA", Mortgage_Burden$RegionName)
+
+
+
+```
+
+
+
 
 # Joining the datasets 
 
