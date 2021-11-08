@@ -262,9 +262,9 @@ data <- data[ -c(3,4,6:12,15:26, 29:36) ]
 #kable(head(data))
   
 
-df_filtered <- data1 %>% filter_at(vars(SaleP_Sep),all_vars(!is.na(.)))
-df_not_na <- data1 %>% filter(!is.na(SaleP_Sep))
-new_df <- data1 %>% drop_na(SaleP_Sep)
+df_filtered <- data %>% filter_at(vars(SaleP_Sep),all_vars(!is.na(.)))
+df_not_na <- data %>% filter(!is.na(SaleP_Sep))
+new_df <- data %>% drop_na(SaleP_Sep)
 
 ```
 
