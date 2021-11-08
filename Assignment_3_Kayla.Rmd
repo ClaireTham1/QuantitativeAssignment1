@@ -280,9 +280,22 @@ data <- data %>% drop_na(SaleP_Sep)
 
 # Observations (UPDATED)
 
-There are 75 rows of data, this represents 75 Metropolitan Statistical Areas (MSA)and there are 8 variables in the columns, 4 of which are . The additional columns are the GEOID, and raw data from which we calculated our Categorical Variables. 
+There are 75 rows of data, this represents 75 Metropolitan Statistical Areas (MSA)and there are 8 variables in the columns, 4 of which are our variables for the regression analyses. The additional columns are the GEOID, and raw data from which we calculated our Categorical Variables. 
 
 # Assignment 3 
 
-Our dependent variable is the For Sale Housing Inventory of each MSA. My independent variables are median age, population density, county type, and majority vote in the most recent presidential election.
+Our dependent variable is the For Sale Housing Inventory of each MSA. Our independent variables are median household income, mortgage burden, median home sale price, and median home list price.
+
+# Continious Variables: Correlations + Regression
+
+This is a correlation test between the dependent variable (For Sale Inventory) and an independent variable (Median Sale Price in September 2021). The correlation is 0.25. This means that there is a positve correlation between MSA
+
+```{r}
+
+cor.test(~ Inv_Sep + SaleP_Sep, data = data)
+
+# Correlation is 0.253145
+
+```
+
 
