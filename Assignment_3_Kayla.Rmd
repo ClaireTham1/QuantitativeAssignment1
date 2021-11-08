@@ -272,7 +272,7 @@ data <- data[ -c(3,4,6:12,15:26, 29:36) ]
 
 # df_filtered <- data1 %>% filter_at(vars(SaleP_Sep),all_vars(!is.na(.))) #These work too, but are just different functions that work with dplyr 
 # df_not_na <- data1 %>% filter(!is.na(SaleP_Sep))
-data <- data %>% drop_na(SaleP_Sep)
+data <- data %>% drop_na(SaleP_Sep) 
 
 ```
 
